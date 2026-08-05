@@ -76,7 +76,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
         // В нашем echo-сервере сообщение от консультанта — это эхо нашего сообщения
         // Для демонстрации: добавим ответное сообщение от консультанта
         const consultantReply: ChatMessage = {
-          id: `reply-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+          id: `reply-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
           text: `[Эхо]: ${text}`,
           sender: 'consultant',
           timestamp: formatTime(),

@@ -2,7 +2,7 @@
 
 import { ConnectionStatus } from '@/types/chat';
 import { ConnectionStatusIndicator } from './ConnectionStatusIndicator';
-import { MessageSquare, UserCheck } from 'lucide-react';
+import { UserCheck } from 'lucide-react';
 
 interface ChatHeaderProps {
   connectionStatus: ConnectionStatus;
