@@ -14,7 +14,7 @@ export function MessageList({ messages, onRetryMessage }: MessageListProps) {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages.length]);
 
   return (
     <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar p-4 space-y-3">
