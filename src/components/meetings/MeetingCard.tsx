@@ -1,35 +1,18 @@
 import { Meeting } from '@/types/meeting';
 import { formatDate } from '@/lib/utils';
-import { Calendar, Clock, User, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, User } from 'lucide-react';
+import { MeetingStatusBadge } from './MeetingStatusBadge';
 
 interface MeetingCardProps {
   meeting: Meeting;
 }
 
 export function MeetingCard({ meeting }: MeetingCardProps) {
-  const isCompleted = meeting.status === 'completed';
-
   return (
     <div className="glass-card p-4 rounded-xl space-y-3 transition-all duration-200 hover:bg-slate-800/80 hover:border-indigo-500/40 hover:shadow-md hover:shadow-indigo-500/5">
       <div className="flex items-start justify-between gap-2">
         <h3 className="font-semibold text-slate-100 text-sm leading-snug">{meeting.title}</h3>
-        <span
-          className={`px-2 py-0.5 text-xs rounded-full font-medium flex items-center gap-1 shrink-0 ${
-            isCompleted
-              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-              : 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
-          }`}
-        >
-          {isCompleted ? (
-            <>
-              <CheckCircle2 className="w-3 h-3" /> Завершена
-            </>
-          ) : (
-            <>
-              <AlertCircle className="w-3 h-3" /> Запланирована
-            </>
-          )}
-        </span>
+        <MeetingStatusBadge status={meeting.status} />
       </div>
 
       <div className="grid grid-cols-2 gap-2 text-xs text-slate-400 pt-1">
