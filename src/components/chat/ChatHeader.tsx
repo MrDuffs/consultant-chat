@@ -11,7 +11,7 @@ interface ChatHeaderProps {
 
 export function ChatHeader({ connectionStatus, onReconnect }: ChatHeaderProps) {
   return (
-    <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/60 backdrop-blur-md">
+    <div className="shrink-0 p-4 border-b border-slate-800 flex items-center justify-between bg-slate-900/60 backdrop-blur-md">
       <div className="flex items-center gap-3">
         <div className="relative">
           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white font-semibold text-sm shadow-md">

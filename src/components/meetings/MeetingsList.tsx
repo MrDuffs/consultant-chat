@@ -25,9 +25,9 @@ export function MeetingsList({ initialMeetings }: MeetingsListProps) {
   });
 
   return (
-    <section className="glass-panel p-5 rounded-2xl flex flex-col h-full space-y-4">
+    <section className="glass-panel p-5 rounded-2xl flex flex-col h-full min-h-0 overflow-hidden space-y-4">
       {/* Header & Refetch Button */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+      <div className="shrink-0 flex items-center justify-between border-b border-slate-800 pb-3">
         <div className="flex items-center gap-2">
           <CalendarDays className="w-5 h-5 text-indigo-400" />
           <h2 className="text-base font-semibold text-slate-100">Мои встречи</h2>

@@ -27,7 +27,7 @@ export function MessageInput({ onSendMessage, disabled }: MessageInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-3 bg-slate-900/80 border-t border-slate-800 flex items-end gap-2">
+    <form onSubmit={handleSubmit} className="shrink-0 p-3 bg-slate-900/80 border-t border-slate-800 flex items-end gap-2">
       <textarea
         value={text}
         onChange={(e) => setText(e.target.value)}

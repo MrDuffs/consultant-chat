@@ -26,7 +26,7 @@ export function ChatContainer() {
   }, [connect, disconnect]);
 
   return (
-    <section className="glass-panel rounded-2xl flex flex-col h-full overflow-hidden">
+    <section className="glass-panel rounded-2xl flex flex-col h-full min-h-0 overflow-hidden">
       <ChatHeader
         connectionStatus={connectionStatus}
         onReconnect={() => connect()}

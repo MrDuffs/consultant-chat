@@ -53,26 +53,26 @@ export default async function ChatPage() {
   const initialMeetings = await getMeetingsServer();
 
   return (
-    <main className="min-h-screen bg-slate-950 p-4 md:p-8 flex flex-col justify-center">
-      <div className="max-w-7xl mx-auto w-full space-y-6">
+    <main className="h-screen max-h-screen overflow-hidden bg-slate-950 p-4 md:p-6 flex flex-col">
+      <div className="max-w-7xl mx-auto w-full h-full flex flex-col min-h-0 space-y-4 md:space-y-6">
         {/* Шапка страницы */}
-        <header className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 gap-2">
+        <header className="shrink-0 flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-3 gap-2">
           <div>
             <h1 className="text-2xl font-bold text-slate-100 tracking-tight">Чат с консультантом</h1>
             <p className="text-sm text-slate-400">Управление консультациями и поддержка в реальном времени</p>
           </div>
         </header>
 
-        {/* Две основные части приложения */}
+        {/* Две основные части приложения на всю доступную высоту экрана */}
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[720px]">
+          <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* 1. Список встреч пользователя (SSR + TanStack Query) */}
-            <div className="lg:col-span-5 h-full">
+            <div className="lg:col-span-5 h-full min-h-0">
               <MeetingsList initialMeetings={initialMeetings} />
             </div>
 
             {/* 2. Чат поверх WebSocket */}
-            <div className="lg:col-span-7 h-full">
+            <div className="lg:col-span-7 h-full min-h-0">
               <ChatContainer />
             </div>
           </div>
