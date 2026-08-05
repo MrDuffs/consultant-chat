@@ -34,7 +34,7 @@ npm run dev
 
 ### 1. Серверные компоненты (Server Components)
 - **`src/app/chat/page.tsx`**:
-  - **Почему на сервере?** По условию ТЗ список встреч должен быть доступен даже при выключенном JavaScript в браузере. Страница выполняет забор данных встреч непосредственно при SSR и рендерит готовую HTML-структуру.
+  - **Почему на сервере?** По условию ТЗ список встреч должен быть доступен даже при выключенном JavaScript в браузере. Страница выполняет предварительный забор данных (SSR prefetch) и рендерит готовую HTML-структуру.
   - На сервере выполняется `prefetchQuery` через `HydrationBoundary`, благодаря чему первичное состояние гидрируется в TanStack Query на клиенте без повторного сетевого запроса при первой загрузке.
 
 ### 2. Клиентские компоненты (Client Components)
@@ -52,35 +52,36 @@ consultant-chat/
 ├── server.js                    # Echo-сервер WebSocket (Node.js + ws, порт 8081)
 ├── src/
     ├── app/
-    │   ├── api/meetings/route.ts# Route Handler GET /api/meetings
-    │   ├── chat/page.tsx        # SSR страница /chat
-    │   ├── layout.tsx           # Корневой макет
-    │   ├── providers.tsx        # QueryClientProvider (TanStack Query)
-    │   └── globals.css          # Дизайн-система & стили
+    │   ├── api/meetings/route.ts# Route Handler GET /api/meetings (все статусы встреч)
+    │   ├── chat/page.tsx        # SSR страница /chat (Layout на всю высоту экрана)
+    │   ├── layout.tsx           # Корневой макет (Inter шрифт, dark тема)
+    │   ├── providers.tsx        # QueryClientProvider (TanStack Query v5)
+    │   └── globals.css          # Дизайн-система, glassmorphism и скроллбары
     ├── components/
-    │   ├── chat/                # Чат (ChatHeader, MessageList, MessageItem, Input)
-    │   └── meetings/            # Встречи (MeetingsList, MeetingCard)
+    │   ├── chat/                # Чат (ChatHeader, MessageList, MessageItem, Input, Status)
+    │   └── meetings/            # Встречи (MeetingsList, MeetingCard, MeetingStatusBadge)
     ├── lib/
-    │   ├── get-query-client.ts  # Безопасный фабричный QueryClient для SSR
-    │   └── utils.ts             # Вспомогательные функции
+    │   ├── get-query-client.ts  # Изолированный фабричный QueryClient для SSR
+    │   └── utils.ts             # Утилиты cn, formatDate и единый formatTime (ru-RU)
     ├── stores/
-    │   └── useChatStore.ts      # Zustand стор для WS и сообщений
+    │   └── useChatStore.ts      # Zustand стор для WS, очередей повторов и реконнекта
     └── types/
         ├── chat.ts              # Типы сообщений и соединений
-        └── meeting.ts           # Типы встреч
+        └── meeting.ts           # Типы встреч (scheduled, in_progress, completed, cancelled)
 ```
 
 ---
 
-## 🛠 Выполненные требования ТЗ
+## 🛠 Выполненные требования и особенности реализации
 
 1. **Список встреч (SSR + TanStack Query)**:
-   - Моковый эндпоинт `GET /api/meetings`.
-   - Серверный рендеринг (работает без JS).
-   - Кнопка «Обновить» перезапрашивает встречи через TanStack Query.
+   - Моковый эндпоинт `GET /api/meetings` с поддержкой всех статусов (`scheduled`, `in_progress` с анимированным пульсом, `completed`, `cancelled`).
+   - Серверный рендеринг (работает даже без JS в браузере).
+   - Кнопка «Обновить» перезапрашивает встречи через TanStack Query без перезагрузки страницы.
+
 2. **Чат поверх WebSocket**:
    - Работает с echo-сервером (`node server.js`).
    - Отправленное сообщение сразу появляется в ленте (оптимистично).
    - Индикация статуса («В сети», «Соединение...», «Нет связи»).
-   - Неотправленные сообщения при сбое помечаются и могут быть отправлены повторно.
+   - Неотправленные сообщения при сбое помечаются и отправляются автоматически при реконнекте или по кнопке «Повторить».
    - Автоматическое переподключение при разрыве.
