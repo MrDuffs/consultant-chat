@@ -36,6 +36,22 @@ export async function GET() {
       consultantName: 'Мария Ковалева',
       durationMinutes: 60,
     },
+    {
+      id: 'm-5',
+      title: 'Стратегическая сессия по планированию бюджета №5',
+      date: new Date(Date.now() - 1000 * 60 * 60 * 120).toISOString(),
+      status: 'scheduled',
+      consultantName: 'Жорик Варяг',
+      durationMinutes: 70,
+    },
+    {
+      id: 'm-6',
+      title: 'Маленькая стратегия',
+      date: new Date(Date.now() - 1000 * 60 * 60 * 120).toISOString(),
+      status: 'cancelled',
+      consultantName: 'Павел Журавлёв',
+      durationMinutes: 20,
+    }
   ];
 
   return NextResponse.json(mockMeetings);
