@@ -45,7 +45,7 @@ export function MeetingsList({ initialMeetings }: MeetingsListProps) {
       </div>
 
       {/* Content area */}
-      <div className="flex-1 overflow-y-auto custom-scrollbar space-y-3 pr-1">
+      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden custom-scrollbar p-0.5 space-y-3 pr-1.5">
         {isError && (
           <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-xs">
             Ошибка при обновлении списка встреч. Попробуйте еще раз.

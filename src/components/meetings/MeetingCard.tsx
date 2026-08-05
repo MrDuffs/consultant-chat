@@ -10,7 +10,7 @@ export function MeetingCard({ meeting }: MeetingCardProps) {
   const isCompleted = meeting.status === 'completed';
 
   return (
-    <div className="glass-card p-4 rounded-xl space-y-3 transition-all duration-200 hover:border-slate-700/80 hover:scale-[1.01]">
+    <div className="glass-card p-4 rounded-xl space-y-3 transition-all duration-200 hover:bg-slate-800/80 hover:border-indigo-500/40 hover:shadow-md hover:shadow-indigo-500/5">
       <div className="flex items-start justify-between gap-2">
         <h3 className="font-semibold text-slate-100 text-sm leading-snug">{meeting.title}</h3>
         <span
