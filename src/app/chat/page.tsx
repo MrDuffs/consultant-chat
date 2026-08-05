@@ -50,8 +50,6 @@ export default async function ChatPage() {
     queryFn: getMeetingsServer,
   });
 
-  const initialMeetings = await getMeetingsServer();
-
   return (
     <main className="h-screen max-h-screen overflow-hidden bg-slate-950 p-4 md:p-6 flex flex-col">
       <div className="max-w-7xl mx-auto w-full h-full flex flex-col min-h-0 space-y-4 md:space-y-6">
@@ -68,7 +66,7 @@ export default async function ChatPage() {
           <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* 1. Список встреч пользователя (SSR + TanStack Query) */}
             <div className="lg:col-span-5 h-full min-h-0">
-              <MeetingsList initialMeetings={initialMeetings} />
+              <MeetingsList />
             </div>
 
             {/* 2. Чат поверх WebSocket */}

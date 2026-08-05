@@ -13,15 +13,10 @@ async function fetchMeetings(): Promise<Meeting[]> {
   return res.json();
 }
 
-interface MeetingsListProps {
-  initialMeetings?: Meeting[];
-}
-
-export function MeetingsList({ initialMeetings }: MeetingsListProps) {
+export function MeetingsList() {
   const { data: meetings, refetch, isFetching, isError } = useQuery<Meeting[]>({
     queryKey: ['meetings'],
     queryFn: fetchMeetings,
-    initialData: initialMeetings,
   });
 
   return (
