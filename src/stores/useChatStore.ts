@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { ChatMessage, ConnectionStatus } from '@/types/chat';
+import { formatTime } from '@/lib/utils';
 
 interface ChatStore {
   messages: ChatMessage[];
@@ -26,7 +27,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       id: 'init-1',
       text: 'Здравствуйте! Я ваш финансовый консультант. Чем могу помочь вам сегодня?',
       sender: 'consultant',
-      timestamp: new Date(Date.now() - 1000 * 60 * 5).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      timestamp: formatTime(),
       status: 'sent',
     },
   ],
@@ -78,7 +79,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
           id: `reply-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
           text: `[Эхо]: ${text}`,
           sender: 'consultant',
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          timestamp: formatTime(),
           status: 'sent',
         };
 
@@ -126,11 +127,11 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       id: `user-${Date.now()}`,
       text: text.trim(),
       sender: 'user',
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      timestamp: formatTime(),
       status: 'sending',
     };
 
-    // 1. Оптимистичное добавление сообщения в ленту сразу
+    // Оптимистичное добавление сообщения в ленту сразу
     get().addMessage(newMsg);
 
     const socket = get().ws;

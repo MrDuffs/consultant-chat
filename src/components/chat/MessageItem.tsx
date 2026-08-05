@@ -32,7 +32,10 @@ export function MessageItem({ message, onRetry }: MessageItemProps) {
         <p className="whitespace-pre-wrap break-words">{message.text}</p>
         
         <div className={`flex items-center justify-end gap-1.5 mt-1 text-[10px] ${isUser ? 'text-indigo-200' : 'text-slate-400'}`}>
-          <span>{message.timestamp}</span>
+          {/* Вынужденная мера для hydration error (timestamp меняется при каждом ререндере, из-за чего и возникает ошибка) */}
+          <span suppressHydrationWarning>
+            {message.timestamp}
+          </span>
 
           {isUser && (
             <span>

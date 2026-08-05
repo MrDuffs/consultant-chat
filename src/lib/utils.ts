@@ -18,3 +18,15 @@ export function formatDate(dateString: string): string {
     return dateString;
   }
 }
+
+export function formatTime(date: Date | string | number = new Date()): string {
+  try {
+    const d = typeof date === 'string' || typeof date === 'number' ? new Date(date) : date;
+    return new Intl.DateTimeFormat('ru-RU', {
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(d);
+  } catch {
+    return '';
+  }
+}
