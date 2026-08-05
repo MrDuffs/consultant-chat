@@ -17,8 +17,8 @@ async function getMeetingsServer(): Promise<Meeting[]> {
     {
       id: 'm-2',
       title: 'Разбор инвестиционного портфеля',
-      date: new Date(Date.now() + 1000 * 60 * 60 * 26).toISOString(),
-      status: 'scheduled',
+      date: new Date().toISOString(),
+      status: 'in_progress',
       consultantName: 'Елена Васильева',
       durationMinutes: 60,
     },
